@@ -1,97 +1,226 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# PokéSwipe 🎮
 
-# Getting Started
+A React Native mobile application that lets you swipe through Pokémon like a dating app! Swipe left to like, swipe right to dislike, and build your collection of favorite Pokémon.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## 📱 Features
 
-## Step 1: Start Metro
+- **Swipe Gestures**: Intuitive swipe gestures to like or dislike Pokémon
+- **Like Button**: Alternative way to like Pokémon with a button press
+- **Collection Management**: View and manage your liked Pokémon collection
+- **Persistent Storage**: Your liked Pokémon are saved using AsyncStorage
+- **Dark Mode**: Toggle between light and dark themes
+- **Random Pokémon**: Discover random Pokémon from generations 1-8
+- **Beautiful UI**: Modern, animated interface with smooth transitions
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## 🏗️ Project Structure
 
-To start the Metro dev server, run the following command from the root of your React Native project:
-
-```sh
-# Using npm
-npm start
-
-# OR using Yarn
-yarn start
+```
+src/
+├── components/          # Reusable UI components
+│   ├── DarkModeToggle.tsx    # Dark mode toggle switch
+│   ├── PokemonCard.tsx       # Card component for displaying Pokémon
+│   └── PokemonImage.tsx      # Image component with fallback handling
+│
+├── context/             # React Context providers
+│   └── ThemeContext.tsx      # Theme management (light/dark mode)
+│
+├── screens/             # Screen components
+│   ├── WelcomeScreen.tsx     # Welcome/landing screen
+│   ├── SwipeScreen.tsx       # Main swipe interface
+│   └── LikedPokemonScreen.tsx # Collection view screen
+│
+├── services/           # API and external services
+│   └── pokeapi.ts           # Pokémon API integration
+│
+└── types/               # TypeScript type definitions
+    ├── pokemon.types.ts      # Pokémon-related types
+    └── theme.types.ts        # Theme-related types
 ```
 
-## Step 2: Build and run your app
+## 📂 Detailed Structure
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+### Components (`src/components/`)
 
-### Android
+#### `DarkModeToggle.tsx`
+- Toggle component for switching between light and dark themes
+- Integrates with ThemeContext
 
-```sh
-# Using npm
-npm run android
+#### `PokemonCard.tsx`
+- Displays Pokémon information in a card format
+- Shows name, types, stats, and abilities
+- Used in both SwipeScreen and LikedPokemonScreen
 
-# OR using Yarn
-yarn android
+#### `PokemonImage.tsx`
+- Handles Pokémon image loading with fallback support
+- Supports SVG and PNG formats
+- Error handling for failed image loads
+
+### Context (`src/context/`)
+
+#### `ThemeContext.tsx`
+- Manages application-wide theme state
+- Provides light/dark mode functionality
+- Supplies theme colors to all components
+
+### Screens (`src/screens/`)
+
+#### `WelcomeScreen.tsx`
+- Landing screen with app introduction
+- Instructions on how to use the app
+- Navigation to SwipeScreen
+
+#### `SwipeScreen.tsx`
+- Main interaction screen
+- Implements PanResponder for swipe gestures
+- Handles like/dislike actions
+- Saves liked Pokémon to AsyncStorage
+- Features animated card transitions
+- Shows feedback messages during swipes
+
+#### `LikedPokemonScreen.tsx`
+- Displays collection of liked Pokémon
+- Grid layout for browsing
+- Remove Pokémon from collection
+- Loads data from AsyncStorage
+
+### Services (`src/services/`)
+
+#### `pokeapi.ts`
+- **`fetchRandomPokemon()`**: Fetches a random Pokémon (ID 1-898)
+- **`getPokemonImageUrl()`**: Returns dream-world SVG image URL
+- **`getOfficialArtworkUrl()`**: Returns official artwork PNG URL
+- **`fetchMultipleRandomPokemon()`**: Fetches multiple random Pokémon
+
+### Types (`src/types/`)
+
+#### `pokemon.types.ts`
+- `PokemonAPIResponse`: Raw API response structure
+- `TransformedPokemon`: Transformed Pokémon data structure
+- `LikedPokemon`: Extends TransformedPokemon for saved Pokémon
+- `RootStackParamList`: Navigation route types
+
+#### `theme.types.ts`
+- Theme-related type definitions
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js >= 22.11.0
+- React Native development environment set up
+- iOS Simulator (for Mac) or Android Emulator
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd demoSwipe
 ```
 
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+2. Install dependencies:
+```bash
+npm install
 ```
 
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
+3. For iOS (Mac only):
+```bash
+cd ios && pod install && cd ..
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+### Running the App
 
-```sh
-# Using npm
+#### iOS
+```bash
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+#### Android
+```bash
+npm run android
+```
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+#### Start Metro Bundler
+```bash
+npm start
+```
 
-## Step 3: Modify your app
+## 🎮 How to Use
 
-Now that you have successfully run the app, let's make changes!
+1. **Start Swiping**: Tap "Start Swiping" on the welcome screen
+2. **Like a Pokémon**: Swipe left or tap the ❤️ button
+3. **Dislike a Pokémon**: Swipe right or tap the 👎 button
+4. **View Collection**: Tap the 📋 icon in the header to see your liked Pokémon
+5. **Remove Pokémon**: Long press or use the remove option in your collection
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+## 🛠️ Technologies Used
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+- **React Native** (0.84.0) - Mobile framework
+- **TypeScript** - Type safety
+- **React Navigation** - Navigation library
+- **AsyncStorage** - Local data persistence
+- **Axios** - HTTP client for API calls
+- **React Native Gesture Handler** - Gesture recognition
+- **React Native Reanimated** - Animations
+- **PokeAPI** - Pokémon data source
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+## 📦 Key Dependencies
 
-## Congratulations! :tada:
+```json
+{
+  "@react-native-async-storage/async-storage": "^2.2.0",
+  "@react-navigation/native": "^7.1.28",
+  "@react-navigation/stack": "^7.7.1",
+  "axios": "^1.13.5",
+  "react-native-gesture-handler": "^2.30.0",
+  "react-native-reanimated": "^4.2.1"
+}
+```
 
-You've successfully run and modified your React Native App. :partying_face:
+## 🎨 Features in Detail
 
-### Now what?
+### Swipe Gestures
+- Uses `PanResponder` for native gesture handling
+- Threshold-based swipe detection
+- Smooth animations with React Native Animated API
+- Visual feedback during swipes (like/dislike indicators)
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+### Data Persistence
+- Liked Pokémon saved to AsyncStorage
+- Automatic loading on app start
+- Real-time collection updates
 
-# Troubleshooting
+### Theme System
+- Context-based theme management
+- Light and dark mode support
+- Persistent theme preference
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+## 🔧 Development
 
-# Learn More
+### Linting
+```bash
+npm run lint
+```
 
-To learn more about React Native, take a look at the following resources:
+### Testing
+```bash
+npm test
+```
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+## 📝 Notes
+
+- Pokémon IDs range from 1-898 (Generations 1-8)
+- Images use dream-world SVG format from PokeAPI sprites
+- All liked Pokémon data is stored locally on the device
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is private and proprietary.
+
+---
+
+Made with ❤️ using React Native and the PokeAPI
